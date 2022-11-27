@@ -7,10 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
 
 function AddTraining(props) {
     const [open, setOpen] = React.useState(false);
+    const [newdate, setDate] = React.useState(dayjs(null));
     const [training, setTraining] = React.useState({
         date: null,
         activity: '',
@@ -42,10 +45,11 @@ function AddTraining(props) {
                 <DialogTitle>Add training</DialogTitle>
                 <DialogContent> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
+                        <DateTimePicker
                             value={training.date}
                             onChange={(newValue)=>{
-                                setTraining({...training, date: newValue.toISOString()});
+                                setDate(newValue);
+                                setTraining({...training, date: newdate.toISOString()});
                                 }
                             }
                             renderInput={(params) => 

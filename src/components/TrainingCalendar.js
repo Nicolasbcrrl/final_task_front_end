@@ -24,26 +24,27 @@ const getTrainings = () => {
     //data contains all the trainings
     .then(data => {
         //we are going to make a loop to get all the customers by trainings
-
-        for(let i = 0; i < data.content.length; i++){
-            console.log(data.content[i].links[2].href);
-            fetch(data.content[i].links[2].href)
-            .then(response => {
-                if(response.ok)
-                    return response.json();
-                else
-                    alert('Something went wrong in fetch');
-            })
-            //cust contains the customer of the training
-            .then(cust => {
-                //we are going to add the customer to the training
-                data.content[i].customer = cust.firstname + " " + cust.lastname;
-                data.content[i].date = new Date(data.content[i].date);
-            })
-            .catch(err => console.error(err))
-        }
-        setTrainings(data.content);
-        console.log(data.content);
+        (async () => {
+          for(let i = 0; i < data.content.length; i++){
+              console.log(data.content[i].links[2].href);
+              await fetch(data.content[i].links[2].href)
+              .then(response => {
+                  if(response.ok)
+                      return response.json();
+                  else
+                      alert('Something went wrong in fetch');
+              })
+              //cust contains the customer of the training
+              .then(cust => {
+                  //we are going to add the customer to the training
+                  data.content[i].customer = cust.firstname + " " + cust.lastname;
+                  data.content[i].date = new Date(data.content[i].date);
+              })
+              .catch(err => console.error(err))
+          }
+          setTrainings(data.content);
+          console.log(data.content);
+        })();
     })
     .catch(err => console.error(err))
 }
