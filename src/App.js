@@ -18,11 +18,10 @@ function App() {
     <div className="App">
       <DrawerMenu handelPageChange={handelPageChange}/>
       <Routes>
-        <Route exact path="/" element={<CustomerList />} />
+        <Route exact path="*" element={<CustomerList />} />
         <Route path="/trainings" element={<TrainingsList />} />
         <Route path="/calendar" element={<TrainingCalendar />} />
         <Route path="/statistics" element={<Statistics />} />
-        <Route path="*" element={<div>Page not found</div>} />
       </Routes>
     </div>
   );
